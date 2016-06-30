@@ -21,4 +21,8 @@ public class VendingMachine {
 		this.currentTotal += coinValue;
 	}
 
+	public Coin getCoinReturn() {
+		return Coin.PENNY;
+	}
+
 }
