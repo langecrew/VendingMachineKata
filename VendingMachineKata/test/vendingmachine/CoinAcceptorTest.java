@@ -11,6 +11,8 @@ public class CoinAcceptorTest {
 		CoinAcceptor coinAcceptor = new CoinAcceptor();
 		Coin coin = coinAcceptor.identifyCoin(1, 1);
 		assertEquals(Coin.DIME, coin);
+		coin = coinAcceptor.identifyCoin(2, 2);
+		assertEquals(Coin.PENNY, coin);
 	}
 
 }
