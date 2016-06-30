@@ -1,12 +1,13 @@
 package vendingmachine;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 public class VendingMachine {
 
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
 	private float currentTotal = 0;
-	private Coin coinReturn = null;
+	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	
 	public String getDisplay() {
 		if (this.currentTotal == 0) {
@@ -21,12 +22,12 @@ public class VendingMachine {
 		float coinValue = this.coinAcceptor.acceptCoin(coin);
 		
 		if (coinValue == 0) {
-			this.coinReturn = coin;
+			this.coinReturn.add(coin);
 		}
 		this.currentTotal += coinValue;
 	}
 
-	public Coin getCoinReturn() {
+	public ArrayList<Coin> getCoinReturn() {
 		return this.coinReturn;
 	}
 

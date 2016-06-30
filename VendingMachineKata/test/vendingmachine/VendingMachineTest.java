@@ -2,6 +2,8 @@ package vendingmachine;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,12 +41,25 @@ public class VendingMachineTest {
 	
 	@Test
 	public void testVendingMachinePutsPenniesInCoinReturn() {
-		assertEquals(null, this.vendingMachine.getCoinReturn());
+		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
+		assertEquals(expectedCoinReturn, this.vendingMachine.getCoinReturn());
 		
 		this.vendingMachine.coinInserted(Coin.PENNY);
-		
-		Coin coinReturn = this.vendingMachine.getCoinReturn();
-		assertEquals(Coin.PENNY, coinReturn);
+		ArrayList<Coin> coinReturn = this.vendingMachine.getCoinReturn();
+		expectedCoinReturn.add(Coin.PENNY);
+		assertEquals(expectedCoinReturn, this.vendingMachine.getCoinReturn());
+	}
+	
+	@Test
+	public void testVendingMachineCanPutMultiplePenniesInCoinReturn() {
+		this.vendingMachine.coinInserted(Coin.PENNY);
+		this.vendingMachine.coinInserted(Coin.PENNY);
+		ArrayList<Coin> coinReturn = this.vendingMachine.getCoinReturn();
+
+		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
+		expectedCoinReturn.add(Coin.PENNY);
+		expectedCoinReturn.add(Coin.PENNY);
+		assertEquals(expectedCoinReturn, this.vendingMachine.getCoinReturn());
 	}
 
 }
