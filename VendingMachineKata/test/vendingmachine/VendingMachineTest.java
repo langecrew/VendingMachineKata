@@ -39,6 +39,8 @@ public class VendingMachineTest {
 	
 	@Test
 	public void testVendingMachinePutsPenniesInCoinReturn() {
+		assertEquals(null, this.vendingMachine.getCoinReturn());
+		
 		this.vendingMachine.coinInserted(Coin.PENNY);
 		
 		Coin coinReturn = this.vendingMachine.getCoinReturn();
