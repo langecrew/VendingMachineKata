@@ -17,7 +17,12 @@ public class CoinAcceptor {
 	}
 
 	public float getCoinValue(Coin coin) {
-		return 0.10f;
+		switch (coin) {
+		case DIME:
+			return 0.10f;
+		default:
+			return 0.05f;
+		}
 	}
 
 }

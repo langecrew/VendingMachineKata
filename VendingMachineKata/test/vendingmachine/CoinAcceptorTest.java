@@ -33,6 +33,8 @@ public class CoinAcceptorTest {
 	public void testCoinAcceptorAssignsProperValueToCoin() {
 		float value = this.coinAcceptor.getCoinValue(Coin.DIME);
 		assertEquals(0.10, value, 0.001);
+		value = this.coinAcceptor.getCoinValue(Coin.NICKEL);
+		assertEquals(0.05, value, 0.001);
 	}
 
 }
