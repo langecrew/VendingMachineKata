@@ -1,19 +1,24 @@
 package vendingmachine;
 
+import java.text.NumberFormat;
+
 public class VendingMachine {
 
+	private CoinAcceptor coinAcceptor = new CoinAcceptor();
 	private float currentTotal = 0;
 	
 	public String getDisplay() {
 		if (this.currentTotal == 0) {
 			return "INSERT COIN";
 		} else {
-			return "$0.10";
+			NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+			return numberFormat.format(this.currentTotal);
 		}
 	}
 
 	public void coinInserted(Coin coin) {
-		this.currentTotal = 0.10f;
+		float coinValue = this.coinAcceptor.acceptCoin(coin);
+		this.currentTotal += coinValue;
 	}
 
 }

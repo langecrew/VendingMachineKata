@@ -23,6 +23,12 @@ public class VendingMachineTest {
 	public void testInsertingCoinUpdatesDisplayWithCurrentTotal() {
 		this.vendingMachine.coinInserted(Coin.DIME);
 		assertEquals("$0.10", this.vendingMachine.getDisplay());
+		
+		this.vendingMachine.coinInserted(Coin.NICKEL);
+		assertEquals("$0.15", this.vendingMachine.getDisplay());
+		
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		assertEquals("$0.40", this.vendingMachine.getDisplay());
 	}
 
 }
