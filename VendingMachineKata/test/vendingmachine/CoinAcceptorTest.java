@@ -44,5 +44,20 @@ public class CoinAcceptorTest {
 		float value = this.coinAcceptor.getCoinValue(Coin.PENNY);
 		assertEquals(0, value, 0.001);
 	}
+	
+	@Test
+	public void testCoinAcceptorAcceptsCoinAndReturnsCorrectValue() {
+		float value = this.coinAcceptor.acceptCoin(Coin.DIME);
+		assertEquals(0.10, value, 0.001);
+		
+		value = this.coinAcceptor.acceptCoin(Coin.NICKEL);
+		assertEquals(0.05, value, 0.001);
+		
+		value = this.coinAcceptor.acceptCoin(Coin.QUARTER);
+		assertEquals(0.25, value, 0.001);
+		
+		value = this.coinAcceptor.acceptCoin(Coin.PENNY);
+		assertEquals(0, value, 0.001);
+	}
 
 }

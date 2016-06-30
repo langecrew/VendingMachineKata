@@ -29,4 +29,10 @@ public class CoinAcceptor {
 		}
 	}
 
+	public float acceptCoin(Coin coin) {
+		coin = this.identifyCoin(coin.getSize(), coin.getWeight());
+		float value = this.getCoinValue(coin);
+		return value;
+	}
+
 }
