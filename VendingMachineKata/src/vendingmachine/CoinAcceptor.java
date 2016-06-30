@@ -16,4 +16,8 @@ public class CoinAcceptor {
 		}
 	}
 
+	public float getCoinValue(Coin coin) {
+		return 0.10f;
+	}
+
 }
