@@ -61,5 +61,11 @@ public class VendingMachineTest {
 		expectedCoinReturn.add(Coin.PENNY);
 		assertEquals(expectedCoinReturn, this.vendingMachine.getCoinReturn());
 	}
+	
+	@Test
+	public void testVendingMachineDisplaysProductPriceWheneThereIsNotEnoughMoneyInserted() {
+		this.vendingMachine.selectProduct(Product.COLA);
+		assertEquals("PRICE $1.00", this.vendingMachine.getDisplay());
+	}
 
 }

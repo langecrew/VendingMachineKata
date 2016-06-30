@@ -8,11 +8,14 @@ public class VendingMachine {
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
 	private float currentTotal = 0;
 	private ArrayList<Coin> coinReturn = new ArrayList<>();
+	private Product selectedProduct = null;
 	
 	public String getDisplay() {
-		if (this.currentTotal == 0) {
+		if (this.selectedProduct != null) {
+			return "PRICE $1.00";
+		} else if (this.currentTotal == 0) {
 			return "INSERT COIN";
-		} else {
+		} else  {
 			NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
 			return numberFormat.format(this.currentTotal);
 		}
@@ -29,6 +32,10 @@ public class VendingMachine {
 
 	public ArrayList<Coin> getCoinReturn() {
 		return this.coinReturn;
+	}
+
+	public void selectProduct(Product product) {
+		this.selectedProduct = product;
 	}
 
 }
