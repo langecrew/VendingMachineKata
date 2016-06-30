@@ -31,4 +31,10 @@ public class VendingMachineTest {
 		assertEquals("$0.40", this.vendingMachine.getDisplay());
 	}
 
+	@Test
+	public void testVendingMachineDoesNotAddPenniesToTotal() {
+		this.vendingMachine.coinInserted(Coin.PENNY);
+		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
+	}
+
 }
