@@ -2,14 +2,27 @@ package vendingmachine;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class VendingMachineTest {
+	
+	private VendingMachine vendingMachine;
+	
+	@Before
+	public void setup() {
+		this.vendingMachine = new VendingMachine();
+	}
 
 	@Test
 	public void testVendingMachineDisplaysInsertCoinWhenNoCoinsHaveBeenInserted() {
-		VendingMachine machine = new VendingMachine();
-		assertEquals("INSERT COIN", machine.getDisplay());
+		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
+	}
+	
+	@Test
+	public void testInsertingCoinUpdatesDisplayWithCurrentTotal() {
+		this.vendingMachine.coinInserted(Coin.DIME);
+		assertEquals("$0.10", this.vendingMachine.getDisplay());
 	}
 
 }
