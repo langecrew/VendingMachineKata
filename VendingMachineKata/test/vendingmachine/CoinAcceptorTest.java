@@ -35,6 +35,14 @@ public class CoinAcceptorTest {
 		assertEquals(0.10, value, 0.001);
 		value = this.coinAcceptor.getCoinValue(Coin.NICKEL);
 		assertEquals(0.05, value, 0.001);
+		value = this.coinAcceptor.getCoinValue(Coin.QUARTER);
+		assertEquals(0.25, value, 0.001);
+	}
+	
+	@Test 
+	public void testCoinAcceptorAssignsNoValueToPenny() {
+		float value = this.coinAcceptor.getCoinValue(Coin.PENNY);
+		assertEquals(0, value, 0.001);
 	}
 
 }

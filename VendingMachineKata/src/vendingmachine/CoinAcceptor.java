@@ -20,8 +20,12 @@ public class CoinAcceptor {
 		switch (coin) {
 		case DIME:
 			return 0.10f;
-		default:
+		case NICKEL:
 			return 0.05f;
+		case QUARTER:
+			return 0.25f;
+		default:
+			return 0;
 		}
 	}
 
