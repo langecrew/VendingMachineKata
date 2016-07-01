@@ -60,16 +60,31 @@ public class VendingMachine {
 		if (this.currentTotal == product.getPrice()) {
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else if (this.currentTotal > product.getPrice()) {
-			this.coinReturn.add(Coin.QUARTER);
-			this.coinReturn.add(Coin.QUARTER);
-			this.coinReturn.add(Coin.QUARTER);
-			this.coinReturn.add(Coin.DIME);
-			this.coinReturn.add(Coin.NICKEL);
+			this.makeChange(product);
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else {
 			this.currentState = VendingMachineState.PRODUCT_SELECTED;
 		}
 		this.selectedProduct = product;
+	}
+
+	private void makeChange(Product product) {
+		int difference = this.currentTotal - product.getPrice();
+		int numberOfQuarters = putChangeInCoinReturn(Coin.QUARTER, 25, difference);
+		
+		difference = difference - (numberOfQuarters * 25);
+		int numberOfDimes = putChangeInCoinReturn(Coin.DIME, 10, difference);
+		
+		difference = difference - (numberOfDimes * 10);
+		putChangeInCoinReturn(Coin.NICKEL, 5, difference);
+	}
+
+	private int putChangeInCoinReturn(Coin coin, int coinValue, int difference) {
+		int numberOfCoins = difference / coinValue;
+		for (int i = 0; i < numberOfCoins; i++) {
+			this.coinReturn.add(coin);
+		}
+		return numberOfCoins;
 	}
 
 }
