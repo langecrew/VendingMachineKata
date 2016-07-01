@@ -9,14 +9,21 @@ public class VendingMachine {
 	private float currentTotal = 0;
 	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	private Product selectedProduct = null;
+	private VendingMachineState currentState = VendingMachineState.READY;
 	
 	public String getDisplay() {
-		if (this.selectedProduct != null) {
-			return "PRICE " + this.formatNumberForDisplay(this.selectedProduct.getPrice());
-		} else if (this.currentTotal == 0) {
+		switch (this.currentState ) {
+		case READY:
 			return "INSERT COIN";
-		} else  {
+		case COIN_INSERTED:
 			return this.formatNumberForDisplay(this.currentTotal);
+		case PRODUCT_SELECTED:
+			if (this.currentTotal == 0) {
+				this.currentState = VendingMachineState.READY;
+			}
+			return "PRICE " + this.formatNumberForDisplay(this.selectedProduct.getPrice());
+		default:
+			return "INSERT COIN";
 		}
 	}
 	
@@ -30,6 +37,8 @@ public class VendingMachine {
 		
 		if (coinValue == 0) {
 			this.coinReturn.add(coin);
+		} else {
+			this.currentState = VendingMachineState.COIN_INSERTED;
 		}
 		this.currentTotal += coinValue;
 	}
@@ -39,6 +48,7 @@ public class VendingMachine {
 	}
 
 	public void selectProduct(Product product) {
+		this.currentState = VendingMachineState.PRODUCT_SELECTED;
 		this.selectedProduct = product;
 	}
 

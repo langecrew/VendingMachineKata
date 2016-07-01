@@ -72,6 +72,7 @@ public class VendingMachineTest {
 	public void testVendingMachineDisplaysInsertCoinAfterProductPriceCheckWhenThereIsNoMoneyInserted() {
 		this.vendingMachine.selectProduct(Product.CHIPS);
 		assertEquals("PRICE $0.50", this.vendingMachine.getDisplay());
+		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
 	}
 
 }
