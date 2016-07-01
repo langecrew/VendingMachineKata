@@ -140,6 +140,7 @@ public class VendingMachineTest {
 		expectedReturnedCoins.add(Coin.NICKEL);
 		
 		assertEquals(expectedReturnedCoins, returnedCoins);
+		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
 	}
 
 }

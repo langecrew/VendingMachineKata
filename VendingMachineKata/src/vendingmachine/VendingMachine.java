@@ -33,6 +33,7 @@ public class VendingMachine {
 		case RETURN_COINS:
 			this.currentState = VendingMachineState.READY;
 			this.insertedCoins.clear();
+			this.currentTotal = 0;
 			return "INSERT COIN";
 		default:
 			return "INSERT COIN";
