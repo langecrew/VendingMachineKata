@@ -2,7 +2,8 @@ package vendingmachine;
 
 public enum Product {
 	COLA(1.00f), 
-	CHIPS(0.50f);
+	CHIPS(0.50f), 
+	CANDY(0.65f);
 	
 	private float price;
 	

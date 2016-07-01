@@ -20,6 +20,8 @@ public class VendingMachine {
 		case PRODUCT_SELECTED:
 			if (this.currentTotal == 0) {
 				this.currentState = VendingMachineState.READY;
+			} else {
+				this.currentState = VendingMachineState.COIN_INSERTED;
 			}
 			return "PRICE " + this.formatNumberForDisplay(this.selectedProduct.getPrice());
 		default:
@@ -38,7 +40,9 @@ public class VendingMachine {
 		if (coinValue == 0) {
 			this.coinReturn.add(coin);
 		} else {
-			this.currentState = VendingMachineState.COIN_INSERTED;
+			if (VendingMachineState.READY.equals(this.currentState)) {
+				this.currentState = VendingMachineState.COIN_INSERTED;
+			}
 		}
 		this.currentTotal += coinValue;
 	}

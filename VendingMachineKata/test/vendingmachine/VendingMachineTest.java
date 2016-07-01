@@ -74,5 +74,13 @@ public class VendingMachineTest {
 		assertEquals("PRICE $0.50", this.vendingMachine.getDisplay());
 		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
 	}
+	
+	@Test
+	public void testVendingMachineDisplaysCurrentTotalAfterProductPriceCheckWhenInsufficientCoinsHaveBeenInserted() {
+		this.vendingMachine.selectProduct(Product.CANDY);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		assertEquals("PRICE $0.65", this.vendingMachine.getDisplay());
+		assertEquals("$0.25", this.vendingMachine.getDisplay());
+	}
 
 }
