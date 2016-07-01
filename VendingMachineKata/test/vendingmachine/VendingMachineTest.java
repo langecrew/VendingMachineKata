@@ -116,6 +116,15 @@ public class VendingMachineTest {
 		this.vendingMachine.selectProduct(Product.CANDY);
 		
 		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
+		
+		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
+		expectedCoinReturn.add(Coin.QUARTER);
+		expectedCoinReturn.add(Coin.QUARTER);
+		expectedCoinReturn.add(Coin.QUARTER);
+		expectedCoinReturn.add(Coin.DIME);
+		expectedCoinReturn.add(Coin.NICKEL);
+		
+		assertEquals(expectedCoinReturn, this.vendingMachine.getCoinReturn());
 	}
 
 }

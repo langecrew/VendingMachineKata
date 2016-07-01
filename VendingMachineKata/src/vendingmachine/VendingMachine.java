@@ -60,6 +60,11 @@ public class VendingMachine {
 		if (this.currentTotal == product.getPrice()) {
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else if (this.currentTotal > product.getPrice()) {
+			this.coinReturn.add(Coin.QUARTER);
+			this.coinReturn.add(Coin.QUARTER);
+			this.coinReturn.add(Coin.QUARTER);
+			this.coinReturn.add(Coin.DIME);
+			this.coinReturn.add(Coin.NICKEL);
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else {
 			this.currentState = VendingMachineState.PRODUCT_SELECTED;
