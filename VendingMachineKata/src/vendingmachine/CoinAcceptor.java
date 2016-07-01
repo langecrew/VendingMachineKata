@@ -16,22 +16,22 @@ public class CoinAcceptor {
 		}
 	}
 
-	public float getCoinValue(Coin coin) {
+	public int getCoinValue(Coin coin) {
 		switch (coin) {
 		case DIME:
-			return 0.10f;
+			return 10;
 		case NICKEL:
-			return 0.05f;
+			return 5;
 		case QUARTER:
-			return 0.25f;
+			return 25;
 		default:
 			return 0;
 		}
 	}
 
-	public float acceptCoin(Coin coin) {
+	public int acceptCoin(Coin coin) {
 		coin = this.identifyCoin(coin.getSize(), coin.getWeight());
-		float value = this.getCoinValue(coin);
+		int value = this.getCoinValue(coin);
 		return value;
 	}
 

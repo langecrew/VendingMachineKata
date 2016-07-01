@@ -31,33 +31,33 @@ public class CoinAcceptorTest {
 	
 	@Test
 	public void testCoinAcceptorAssignsProperValueToCoin() {
-		float value = this.coinAcceptor.getCoinValue(Coin.DIME);
-		assertEquals(0.10, value, 0.001);
+		int value = this.coinAcceptor.getCoinValue(Coin.DIME);
+		assertEquals(10, value);
 		value = this.coinAcceptor.getCoinValue(Coin.NICKEL);
-		assertEquals(0.05, value, 0.001);
+		assertEquals(5, value);
 		value = this.coinAcceptor.getCoinValue(Coin.QUARTER);
-		assertEquals(0.25, value, 0.001);
+		assertEquals(25, value);
 	}
 	
 	@Test 
 	public void testCoinAcceptorAssignsNoValueToPenny() {
-		float value = this.coinAcceptor.getCoinValue(Coin.PENNY);
-		assertEquals(0, value, 0.001);
+		int value = this.coinAcceptor.getCoinValue(Coin.PENNY);
+		assertEquals(0, value);
 	}
 	
 	@Test
 	public void testCoinAcceptorAcceptsCoinAndReturnsCorrectValue() {
-		float value = this.coinAcceptor.acceptCoin(Coin.DIME);
-		assertEquals(0.10, value, 0.001);
+		int value = this.coinAcceptor.acceptCoin(Coin.DIME);
+		assertEquals(10, value);
 		
 		value = this.coinAcceptor.acceptCoin(Coin.NICKEL);
-		assertEquals(0.05, value, 0.001);
+		assertEquals(5, value);
 		
 		value = this.coinAcceptor.acceptCoin(Coin.QUARTER);
-		assertEquals(0.25, value, 0.001);
+		assertEquals(25, value);
 		
 		value = this.coinAcceptor.acceptCoin(Coin.PENNY);
-		assertEquals(0, value, 0.001);
+		assertEquals(0, value);
 	}
 
 }

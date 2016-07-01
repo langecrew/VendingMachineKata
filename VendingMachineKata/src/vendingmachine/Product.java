@@ -1,17 +1,17 @@
 package vendingmachine;
 
 public enum Product {
-	COLA(1.00f), 
-	CHIPS(0.50f), 
-	CANDY(0.65f);
+	COLA(100), 
+	CHIPS(50), 
+	CANDY(65);
 	
-	private float price;
+	private int price;
 	
-	private Product(float price) {
+	private Product(int price) {
 		this.price = price;
 	}
 
-	public float getPrice() {
+	public int getPrice() {
 		return this.price;
 	}
 

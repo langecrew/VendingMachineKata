@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class VendingMachine {
 
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
-	private float currentTotal = 0;
+	private int currentTotal = 0;
 	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	private Product selectedProduct = null;
 	private VendingMachineState currentState = VendingMachineState.READY;
@@ -34,13 +34,13 @@ public class VendingMachine {
 		}
 	}
 	
-	private String formatNumberForDisplay(float number) {
+	private String formatNumberForDisplay(int number) {
 		NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-		return numberFormat.format(number);
+		return numberFormat.format((float) number / 100f);
 	}
 
 	public void coinInserted(Coin coin) {
-		float coinValue = this.coinAcceptor.acceptCoin(coin);
+		int coinValue = this.coinAcceptor.acceptCoin(coin);
 		
 		if (coinValue == 0) {
 			this.coinReturn.add(coin);
