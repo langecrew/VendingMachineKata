@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import vendingmachine.coin.Coin;
+
 public class VendingMachineTest {
 	
 	private VendingMachine vendingMachine;

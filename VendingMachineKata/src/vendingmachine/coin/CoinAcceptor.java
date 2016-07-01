@@ -1,4 +1,4 @@
-package vendingmachine;
+package vendingmachine.coin;
 
 import static vendingmachine.VendingMachineConstants.DIME_VALUE;
 import static vendingmachine.VendingMachineConstants.NICKEL_VALUE;

@@ -1,4 +1,4 @@
-package vendingmachine;
+package vendingmachine.coin;
 
 import static org.junit.Assert.assertEquals;
 import static vendingmachine.VendingMachineConstants.DIME_SIZE;
@@ -16,6 +16,9 @@ import static vendingmachine.VendingMachineConstants.ZERO;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import vendingmachine.coin.Coin;
+import vendingmachine.coin.CoinAcceptor;
 
 public class CoinAcceptorTest {
 	

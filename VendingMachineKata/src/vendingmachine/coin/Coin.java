@@ -1,4 +1,4 @@
-package vendingmachine;
+package vendingmachine.coin;
 
 import static vendingmachine.VendingMachineConstants.DIME_SIZE;
 import static vendingmachine.VendingMachineConstants.DIME_WEIGHT;

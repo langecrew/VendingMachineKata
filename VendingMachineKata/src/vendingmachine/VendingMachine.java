@@ -12,6 +12,9 @@ import static vendingmachine.VendingMachineConstants.ZERO;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import vendingmachine.coin.Coin;
+import vendingmachine.coin.CoinAcceptor;
+
 public class VendingMachine {
 	
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
