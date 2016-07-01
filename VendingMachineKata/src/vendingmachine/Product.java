@@ -10,7 +10,7 @@ public enum Product {
 		this.price = price;
 	}
 
-	public Object getPrice() {
+	public float getPrice() {
 		return this.price;
 	}
 

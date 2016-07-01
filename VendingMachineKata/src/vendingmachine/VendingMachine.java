@@ -12,14 +12,17 @@ public class VendingMachine {
 	
 	public String getDisplay() {
 		if (this.selectedProduct != null) {
-			NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-			return "PRICE " + numberFormat.format(this.selectedProduct.getPrice());
+			return "PRICE " + this.formatNumberForDisplay(this.selectedProduct.getPrice());
 		} else if (this.currentTotal == 0) {
 			return "INSERT COIN";
 		} else  {
-			NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-			return numberFormat.format(this.currentTotal);
+			return this.formatNumberForDisplay(this.currentTotal);
 		}
+	}
+	
+	private String formatNumberForDisplay(float number) {
+		NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+		return numberFormat.format(number);
 	}
 
 	public void coinInserted(Coin coin) {
