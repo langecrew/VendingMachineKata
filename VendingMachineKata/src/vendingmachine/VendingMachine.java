@@ -12,7 +12,8 @@ public class VendingMachine {
 	
 	public String getDisplay() {
 		if (this.selectedProduct != null) {
-			return "PRICE $1.00";
+			NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+			return "PRICE " + numberFormat.format(this.selectedProduct.getPrice());
 		} else if (this.currentTotal == 0) {
 			return "INSERT COIN";
 		} else  {
