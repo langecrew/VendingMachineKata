@@ -24,6 +24,8 @@ public class VendingMachine {
 				this.currentState = VendingMachineState.COIN_INSERTED;
 			}
 			return "PRICE " + this.formatNumberForDisplay(this.selectedProduct.getPrice());
+		case DISPENSE_PRODUCT:
+			return "THANK YOU";
 		default:
 			return "INSERT COIN";
 		}
@@ -52,7 +54,11 @@ public class VendingMachine {
 	}
 
 	public void selectProduct(Product product) {
-		this.currentState = VendingMachineState.PRODUCT_SELECTED;
+		if (this.currentTotal == product.getPrice()) {
+			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
+		} else {
+			this.currentState = VendingMachineState.PRODUCT_SELECTED;
+		}
 		this.selectedProduct = product;
 	}
 

@@ -82,5 +82,15 @@ public class VendingMachineTest {
 		assertEquals("PRICE $0.65", this.vendingMachine.getDisplay());
 		assertEquals("$0.25", this.vendingMachine.getDisplay());
 	}
+	
+	@Test
+	public void testVendingMachineDisplaysThankYouIfEnoughMoneyHasBeenInsertedToPurchaseSelectedProduct() {
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.selectProduct(Product.COLA);
+		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
+	}
 
 }
