@@ -92,5 +92,14 @@ public class VendingMachineTest {
 		this.vendingMachine.selectProduct(Product.COLA);
 		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
 	}
+	
+	@Test
+	public void testVendingMachineDispayIsResetAfterSuccessfullyDispensingProduct() {
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.selectProduct(Product.CHIPS);
+		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
+		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
+	}
 
 }

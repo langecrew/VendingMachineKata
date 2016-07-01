@@ -25,6 +25,9 @@ public class VendingMachine {
 			}
 			return "PRICE " + this.formatNumberForDisplay(this.selectedProduct.getPrice());
 		case DISPENSE_PRODUCT:
+			this.currentTotal = 0;
+			this.selectedProduct = null;
+			this.currentState = VendingMachineState.READY;
 			return "THANK YOU";
 		default:
 			return "INSERT COIN";
