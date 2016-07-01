@@ -1,6 +1,9 @@
 package vendingmachine;
 
 import static org.junit.Assert.assertEquals;
+import static vendingmachine.VendingMachineConstants.INSERT_COIN;
+import static vendingmachine.VendingMachineConstants.PRICE;
+import static vendingmachine.VendingMachineConstants.THANK_YOU;
 
 import java.util.ArrayList;
 
@@ -18,7 +21,7 @@ public class VendingMachineTest {
 
 	@Test
 	public void testVendingMachineDisplaysInsertCoinWhenNoCoinsHaveBeenInserted() {
-		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
+		assertEquals(INSERT_COIN, this.vendingMachine.getDisplay());
 	}
 	
 	@Test
@@ -36,7 +39,7 @@ public class VendingMachineTest {
 	@Test
 	public void testVendingMachineDoesNotAddPenniesToTotal() {
 		this.vendingMachine.coinInserted(Coin.PENNY);
-		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
+		assertEquals(INSERT_COIN, this.vendingMachine.getDisplay());
 	}
 	
 	@Test
@@ -45,7 +48,6 @@ public class VendingMachineTest {
 		assertEquals(expectedCoinReturn, this.vendingMachine.getCoinReturn());
 		
 		this.vendingMachine.coinInserted(Coin.PENNY);
-		ArrayList<Coin> coinReturn = this.vendingMachine.getCoinReturn();
 		expectedCoinReturn.add(Coin.PENNY);
 		assertEquals(expectedCoinReturn, this.vendingMachine.getCoinReturn());
 	}
@@ -54,7 +56,6 @@ public class VendingMachineTest {
 	public void testVendingMachineCanPutMultiplePenniesInCoinReturn() {
 		this.vendingMachine.coinInserted(Coin.PENNY);
 		this.vendingMachine.coinInserted(Coin.PENNY);
-		ArrayList<Coin> coinReturn = this.vendingMachine.getCoinReturn();
 
 		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
 		expectedCoinReturn.add(Coin.PENNY);
@@ -65,21 +66,21 @@ public class VendingMachineTest {
 	@Test
 	public void testVendingMachineDisplaysProductPriceWheneThereIsNotEnoughMoneyInserted() {
 		this.vendingMachine.selectProduct(Product.COLA);
-		assertEquals("PRICE $1.00", this.vendingMachine.getDisplay());
+		assertEquals(PRICE + "$1.00", this.vendingMachine.getDisplay());
 	}
 	
 	@Test
 	public void testVendingMachineDisplaysInsertCoinAfterProductPriceCheckWhenThereIsNoMoneyInserted() {
 		this.vendingMachine.selectProduct(Product.CHIPS);
-		assertEquals("PRICE $0.50", this.vendingMachine.getDisplay());
-		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
+		assertEquals(PRICE + "$0.50", this.vendingMachine.getDisplay());
+		assertEquals(INSERT_COIN, this.vendingMachine.getDisplay());
 	}
 	
 	@Test
 	public void testVendingMachineDisplaysCurrentTotalAfterProductPriceCheckWhenInsufficientCoinsHaveBeenInserted() {
 		this.vendingMachine.selectProduct(Product.CANDY);
 		this.vendingMachine.coinInserted(Coin.QUARTER);
-		assertEquals("PRICE $0.65", this.vendingMachine.getDisplay());
+		assertEquals(PRICE + "$0.65", this.vendingMachine.getDisplay());
 		assertEquals("$0.25", this.vendingMachine.getDisplay());
 	}
 	
@@ -90,7 +91,7 @@ public class VendingMachineTest {
 		this.vendingMachine.coinInserted(Coin.QUARTER);
 		this.vendingMachine.coinInserted(Coin.QUARTER);
 		this.vendingMachine.selectProduct(Product.COLA);
-		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
+		assertEquals(THANK_YOU, this.vendingMachine.getDisplay());
 	}
 	
 	@Test
@@ -98,8 +99,8 @@ public class VendingMachineTest {
 		this.vendingMachine.coinInserted(Coin.QUARTER);
 		this.vendingMachine.coinInserted(Coin.QUARTER);
 		this.vendingMachine.selectProduct(Product.CHIPS);
-		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
-		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
+		assertEquals(THANK_YOU, this.vendingMachine.getDisplay());
+		assertEquals(INSERT_COIN, this.vendingMachine.getDisplay());
 	}
 	
 	@Test
@@ -115,7 +116,7 @@ public class VendingMachineTest {
 		this.vendingMachine.coinInserted(Coin.NICKEL);
 		this.vendingMachine.selectProduct(Product.CANDY);
 		
-		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
+		assertEquals(THANK_YOU, this.vendingMachine.getDisplay());
 		
 		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
 		expectedCoinReturn.add(Coin.QUARTER);
@@ -140,7 +141,7 @@ public class VendingMachineTest {
 		expectedReturnedCoins.add(Coin.NICKEL);
 		
 		assertEquals(expectedReturnedCoins, returnedCoins);
-		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
+		assertEquals(INSERT_COIN, this.vendingMachine.getDisplay());
 	}
 
 }

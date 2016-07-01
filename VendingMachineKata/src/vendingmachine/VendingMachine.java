@@ -1,12 +1,21 @@
 package vendingmachine;
 
+import static vendingmachine.VendingMachineConstants.CURRENCY_CONVERSION_FACTOR;
+import static vendingmachine.VendingMachineConstants.DIME_VALUE;
+import static vendingmachine.VendingMachineConstants.INSERT_COIN;
+import static vendingmachine.VendingMachineConstants.NICKEL_VALUE;
+import static vendingmachine.VendingMachineConstants.PRICE;
+import static vendingmachine.VendingMachineConstants.QUARTER_VALUE;
+import static vendingmachine.VendingMachineConstants.THANK_YOU;
+import static vendingmachine.VendingMachineConstants.ZERO;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class VendingMachine {
-
+	
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
-	private int currentTotal = 0;
+	private int currentTotal = ZERO;
 	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	private Product selectedProduct = null;
 	private VendingMachineState currentState = VendingMachineState.READY;
@@ -15,40 +24,40 @@ public class VendingMachine {
 	public String getDisplay() {
 		switch (this.currentState ) {
 		case READY:
-			return "INSERT COIN";
+			return INSERT_COIN;
 		case COIN_INSERTED:
 			return this.formatNumberForDisplay(this.currentTotal);
 		case PRODUCT_SELECTED:
-			if (this.currentTotal == 0) {
+			if (this.currentTotal == ZERO) {
 				this.currentState = VendingMachineState.READY;
 			} else {
 				this.currentState = VendingMachineState.COIN_INSERTED;
 			}
-			return "PRICE " + this.formatNumberForDisplay(this.selectedProduct.getPrice());
+			return PRICE + this.formatNumberForDisplay(this.selectedProduct.getPrice());
 		case DISPENSE_PRODUCT:
-			this.currentTotal = 0;
+			this.currentTotal = ZERO;
 			this.selectedProduct = null;
 			this.currentState = VendingMachineState.READY;
-			return "THANK YOU";
+			return THANK_YOU;
 		case RETURN_COINS:
 			this.currentState = VendingMachineState.READY;
 			this.insertedCoins.clear();
-			this.currentTotal = 0;
-			return "INSERT COIN";
+			this.currentTotal = ZERO;
+			return INSERT_COIN;
 		default:
-			return "INSERT COIN";
+			return INSERT_COIN;
 		}
 	}
 	
 	private String formatNumberForDisplay(int number) {
 		NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-		return numberFormat.format((float) number / 100f);
+		return numberFormat.format((float) number / CURRENCY_CONVERSION_FACTOR);
 	}
 
 	public void coinInserted(Coin coin) {
 		int coinValue = this.coinAcceptor.acceptCoin(coin);
 		
-		if (coinValue == 0) {
+		if (coinValue == ZERO) {
 			this.coinReturn.add(coin);
 		} else {
 			this.insertedCoins.add(coin);
@@ -77,18 +86,18 @@ public class VendingMachine {
 
 	private void makeChange(Product product) {
 		int difference = this.currentTotal - product.getPrice();
-		int numberOfQuarters = putChangeInCoinReturn(Coin.QUARTER, 25, difference);
+		int numberOfQuarters = putChangeInCoinReturn(Coin.QUARTER, QUARTER_VALUE, difference);
 		
-		difference = difference - (numberOfQuarters * 25);
-		int numberOfDimes = putChangeInCoinReturn(Coin.DIME, 10, difference);
+		difference = difference - (numberOfQuarters * QUARTER_VALUE);
+		int numberOfDimes = putChangeInCoinReturn(Coin.DIME, DIME_VALUE, difference);
 		
-		difference = difference - (numberOfDimes * 10);
-		putChangeInCoinReturn(Coin.NICKEL, 5, difference);
+		difference = difference - (numberOfDimes * DIME_VALUE);
+		putChangeInCoinReturn(Coin.NICKEL, NICKEL_VALUE, difference);
 	}
 
 	private int putChangeInCoinReturn(Coin coin, int coinValue, int difference) {
 		int numberOfCoins = difference / coinValue;
-		for (int i = 0; i < numberOfCoins; i++) {
+		for (int i = ZERO; i < numberOfCoins; i++) {
 			this.coinReturn.add(coin);
 		}
 		return numberOfCoins;

@@ -1,9 +1,13 @@
 package vendingmachine;
 
+import static vendingmachine.VendingMachineConstants.CANDY_PRICE;
+import static vendingmachine.VendingMachineConstants.CHIPS_PRICE;
+import static vendingmachine.VendingMachineConstants.COLA_PRICE;
+
 public enum Product {
-	COLA(100), 
-	CHIPS(50), 
-	CANDY(65);
+	COLA(COLA_PRICE), 
+	CHIPS(CHIPS_PRICE), 
+	CANDY(CANDY_PRICE);
 	
 	private int price;
 	

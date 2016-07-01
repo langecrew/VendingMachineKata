@@ -1,5 +1,10 @@
 package vendingmachine;
 
+import static vendingmachine.VendingMachineConstants.DIME_VALUE;
+import static vendingmachine.VendingMachineConstants.NICKEL_VALUE;
+import static vendingmachine.VendingMachineConstants.QUARTER_VALUE;
+import static vendingmachine.VendingMachineConstants.ZERO;
+
 public class CoinAcceptor {
 
 	public Coin identifyCoin(int size, int weight) {
@@ -19,13 +24,13 @@ public class CoinAcceptor {
 	public int getCoinValue(Coin coin) {
 		switch (coin) {
 		case DIME:
-			return 10;
+			return DIME_VALUE;
 		case NICKEL:
-			return 5;
+			return NICKEL_VALUE;
 		case QUARTER:
-			return 25;
+			return QUARTER_VALUE;
 		default:
-			return 0;
+			return ZERO;
 		}
 	}
 
