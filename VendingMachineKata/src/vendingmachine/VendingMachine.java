@@ -10,6 +10,7 @@ public class VendingMachine {
 	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	private Product selectedProduct = null;
 	private VendingMachineState currentState = VendingMachineState.READY;
+	private ArrayList<Coin> insertedCoins = new ArrayList<>();
 	
 	public String getDisplay() {
 		switch (this.currentState ) {
@@ -29,6 +30,10 @@ public class VendingMachine {
 			this.selectedProduct = null;
 			this.currentState = VendingMachineState.READY;
 			return "THANK YOU";
+		case RETURN_COINS:
+			this.currentState = VendingMachineState.READY;
+			this.insertedCoins.clear();
+			return "INSERT COIN";
 		default:
 			return "INSERT COIN";
 		}
@@ -45,6 +50,7 @@ public class VendingMachine {
 		if (coinValue == 0) {
 			this.coinReturn.add(coin);
 		} else {
+			this.insertedCoins.add(coin);
 			if (VendingMachineState.READY.equals(this.currentState)) {
 				this.currentState = VendingMachineState.COIN_INSERTED;
 			}
@@ -85,6 +91,11 @@ public class VendingMachine {
 			this.coinReturn.add(coin);
 		}
 		return numberOfCoins;
+	}
+
+	public ArrayList<Coin> returnCoins() {
+		this.currentState = VendingMachineState.RETURN_COINS;
+		return this.insertedCoins ;
 	}
 
 }

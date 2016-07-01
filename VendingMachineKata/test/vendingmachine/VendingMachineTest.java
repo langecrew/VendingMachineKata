@@ -126,5 +126,20 @@ public class VendingMachineTest {
 		
 		assertEquals(expectedCoinReturn, this.vendingMachine.getCoinReturn());
 	}
+	
+	@Test
+	public void testVendingMachineCanReturnInsertedCoins() {
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.DIME);
+		this.vendingMachine.coinInserted(Coin.NICKEL);
+		ArrayList<Coin> returnedCoins = this.vendingMachine.returnCoins();
+		
+		ArrayList<Coin> expectedReturnedCoins = new ArrayList<>();
+		expectedReturnedCoins.add(Coin.QUARTER);
+		expectedReturnedCoins.add(Coin.DIME);
+		expectedReturnedCoins.add(Coin.NICKEL);
+		
+		assertEquals(expectedReturnedCoins, returnedCoins);
+	}
 
 }
