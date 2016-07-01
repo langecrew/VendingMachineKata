@@ -59,6 +59,8 @@ public class VendingMachine {
 	public void selectProduct(Product product) {
 		if (this.currentTotal == product.getPrice()) {
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
+		} else if (this.currentTotal > product.getPrice()) {
+			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else {
 			this.currentState = VendingMachineState.PRODUCT_SELECTED;
 		}

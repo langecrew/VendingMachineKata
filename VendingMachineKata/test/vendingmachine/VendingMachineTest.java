@@ -101,5 +101,21 @@ public class VendingMachineTest {
 		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
 		assertEquals("INSERT COIN", this.vendingMachine.getDisplay());
 	}
+	
+	@Test
+	public void testVendingMachineMakesChangeWhenTotalCoinsInsertedExceedsSelectedProductPrice() {
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.QUARTER);
+		this.vendingMachine.coinInserted(Coin.DIME);
+		this.vendingMachine.coinInserted(Coin.DIME);
+		this.vendingMachine.coinInserted(Coin.NICKEL);
+		this.vendingMachine.coinInserted(Coin.NICKEL);
+		this.vendingMachine.selectProduct(Product.CANDY);
+		
+		assertEquals("THANK YOU", this.vendingMachine.getDisplay());
+	}
 
 }
