@@ -19,7 +19,6 @@ public class VendingMachine {
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
 	private CoinProcessor coinProcessor = new CoinProcessor();
 	private ChangeMaker changeMaker = new ChangeMaker();
-	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	private Product selectedProduct = null;
 	private VendingMachineState currentState = VendingMachineState.READY;
 	
@@ -58,19 +57,14 @@ public class VendingMachine {
 
 	public void coinInserted(Coin coin) {
 		int coinValue = this.coinAcceptor.acceptCoin(coin);
-		
-		if (coinValue == ZERO) {
-			this.coinReturn.add(coin);
-		} else {
-			this.coinProcessor.processInsertedCoin(coin);
-			if (VendingMachineState.READY.equals(this.currentState)) {
-				this.currentState = VendingMachineState.COIN_INSERTED;
-			}
+		this.coinProcessor.processInsertedCoin(coin);
+		if (coinValue != 0 && VendingMachineState.READY.equals(this.currentState)) {
+			this.currentState = VendingMachineState.COIN_INSERTED;
 		}
 	}
 
 	public ArrayList<Coin> getCoinReturn() {
-		return this.coinReturn;
+		return this.coinProcessor.getCoinReturn();
 	}
 
 	public void selectProduct(Product product) {
@@ -78,7 +72,7 @@ public class VendingMachine {
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else if (this.coinProcessor.getCurrentTotal() > product.getPrice()) {
 			ArrayList<Coin> change = this.changeMaker.makeChange(product, this.coinProcessor.getCurrentTotal());
-			this.coinReturn.addAll(change);
+			this.coinProcessor.addCoinsToCoinReturn(change);
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else {
 			this.currentState = VendingMachineState.PRODUCT_SELECTED;
