@@ -47,5 +47,11 @@ public class CoinProcessorTest {
 		expectedReturnedCoins.clear();
 		assertEquals(expectedReturnedCoins, returnedCoins);
 	}
+	
+	@Test
+	public void testCoinProcessorAddsCoinValuesToTotal() {
+		this.coinProcessor.processInsertedCoin(Coin.DIME);
+		int currentTotal = this.coinProcessor.getCurrentTotal();
+	}
 
 }

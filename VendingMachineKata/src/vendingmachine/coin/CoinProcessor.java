@@ -1,5 +1,7 @@
 package vendingmachine.coin;
 
+import static vendingmachine.VendingMachineConstants.ZERO;
+
 import java.util.ArrayList;
 
 public class CoinProcessor {
@@ -16,6 +18,10 @@ public class CoinProcessor {
 
 	public void clearInsertedCoins() {
 		this.insertedCoins.clear();
+	}
+
+	public int getCurrentTotal() {
+		return ZERO;
 	}
 
 }
