@@ -77,7 +77,7 @@ public class CoinProcessorTest {
 	
 	@Test
 	public void testCoinProcessorRejectsPennies() {
-		ArrayList<Coin> coinReturn = this.coinProcessor.getRejectedCoins();
+		ArrayList<Coin> coinReturn = this.coinProcessor.getCoinReturn();
 		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
 		assertEquals(expectedCoinReturn, coinReturn);
 
@@ -100,6 +100,50 @@ public class CoinProcessorTest {
 		this.coinProcessor.resetCurrentTotal();
 		currentTotal = this.coinProcessor.getCurrentTotal();
 		assertEquals(ZERO, currentTotal);
+	}
+	
+	@Test
+	public void testCoinProcessorCanAddCoinsToCoinReturn() {
+		ArrayList<Coin> coinReturn = this.coinProcessor.getCoinReturn();
+		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
+		
+		assertEquals(expectedCoinReturn, coinReturn);
+		
+		this.coinProcessor.putCoinInCoinReturn(Coin.DIME);
+		this.coinProcessor.putCoinInCoinReturn(Coin.DIME);
+		this.coinProcessor.putCoinInCoinReturn(Coin.QUARTER);
+		this.coinProcessor.putCoinInCoinReturn(Coin.NICKEL);
+		
+		coinReturn = this.coinProcessor.getCoinReturn();
+		expectedCoinReturn.add(Coin.DIME);
+		expectedCoinReturn.add(Coin.DIME);
+		expectedCoinReturn.add(Coin.QUARTER);
+		expectedCoinReturn.add(Coin.NICKEL);
+
+		assertEquals(expectedCoinReturn, coinReturn);
+	}
+	
+	@Test
+	public void testCoinProcessorCanAddSetOfCoinsToCoinReturn() {
+		ArrayList<Coin> coinReturn = this.coinProcessor.getCoinReturn();
+		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
+		
+		assertEquals(expectedCoinReturn, coinReturn);
+		
+		ArrayList<Coin> coinsToPutInCoinReturn = new ArrayList<>();
+		coinsToPutInCoinReturn.add(Coin.DIME);
+		coinsToPutInCoinReturn.add(Coin.DIME);
+		coinsToPutInCoinReturn.add(Coin.QUARTER);
+		coinsToPutInCoinReturn.add(Coin.NICKEL);
+		this.coinProcessor.addCoinsToCoinReturn(coinsToPutInCoinReturn);
+		
+		coinReturn = this.coinProcessor.getCoinReturn();
+		expectedCoinReturn.add(Coin.DIME);
+		expectedCoinReturn.add(Coin.DIME);
+		expectedCoinReturn.add(Coin.QUARTER);
+		expectedCoinReturn.add(Coin.NICKEL);
+
+		assertEquals(expectedCoinReturn, coinReturn);
 	}
 
 }
