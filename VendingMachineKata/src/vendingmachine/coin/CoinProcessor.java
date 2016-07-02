@@ -14,4 +14,8 @@ public class CoinProcessor {
 		return this.insertedCoins;
 	}
 
+	public void clearInsertedCoins() {
+		this.insertedCoins.clear();
+	}
+
 }
