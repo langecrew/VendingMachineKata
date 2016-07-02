@@ -3,15 +3,15 @@ package vendingmachine.coin;
 import java.util.ArrayList;
 
 public class CoinProcessor {
+	
+	private ArrayList<Coin> insertedCoins = new ArrayList<>();
 
-	public void addCoinToInsertedCoins(Coin dime) {
-		
+	public void processInsertedCoin(Coin coin) {
+		this.insertedCoins.add(coin);
 	}
 
 	public ArrayList<Coin> returnCoins() {
-		ArrayList<Coin> returnedCoins = new ArrayList<>();
-		returnedCoins.add(Coin.DIME);
-		return returnedCoins;
+		return this.insertedCoins;
 	}
 
 }
