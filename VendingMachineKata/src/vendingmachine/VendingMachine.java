@@ -68,9 +68,7 @@ public class VendingMachine {
 	}
 
 	public void selectProduct(Product product) {
-		if (this.coinProcessor.getCurrentTotal() == product.getPrice()) {
-			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
-		} else if (this.coinProcessor.getCurrentTotal() > product.getPrice()) {
+		if (this.coinProcessor.getCurrentTotal() >= product.getPrice()) {
 			ArrayList<Coin> change = this.changeMaker.makeChange(product, this.coinProcessor.getCurrentTotal());
 			this.coinProcessor.addCoinsToCoinReturn(change);
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
