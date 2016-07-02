@@ -1,13 +1,13 @@
 package vendingmachine.coin;
 
 import static org.junit.Assert.assertEquals;
+import static vendingmachine.VendingMachineConstants.DIME_VALUE;
+import static vendingmachine.VendingMachineConstants.ZERO;
 
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import vendingmachine.VendingMachineConstants;
 
 public class CoinProcessorTest {
 	
@@ -53,11 +53,26 @@ public class CoinProcessorTest {
 	@Test
 	public void testCoinProcessorAddsCoinValuesToTotal() {
 		int currentTotal = this.coinProcessor.getCurrentTotal();
-		assertEquals(VendingMachineConstants.ZERO, currentTotal);
+		assertEquals(ZERO, currentTotal);
 		
 		this.coinProcessor.processInsertedCoin(Coin.DIME);
 		currentTotal = this.coinProcessor.getCurrentTotal();
-		assertEquals(VendingMachineConstants.DIME_VALUE, currentTotal);
+		assertEquals(DIME_VALUE, currentTotal);
+	}
+	
+	@Test
+	public void testCoinProcessorDoesNotAddPenniesToTotal() {
+		this.coinProcessor.processInsertedCoin(Coin.PENNY);
+		int currentTotal = this.coinProcessor.getCurrentTotal();
+		assertEquals(ZERO, currentTotal);
+		
+		this.coinProcessor.processInsertedCoin(Coin.DIME);
+		currentTotal = this.coinProcessor.getCurrentTotal();
+		assertEquals(DIME_VALUE, currentTotal);
+		
+		this.coinProcessor.processInsertedCoin(Coin.PENNY);
+		currentTotal = this.coinProcessor.getCurrentTotal();
+		assertEquals(DIME_VALUE, currentTotal);
 	}
 
 }
