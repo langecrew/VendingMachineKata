@@ -14,15 +14,16 @@ import java.util.ArrayList;
 
 import vendingmachine.coin.Coin;
 import vendingmachine.coin.CoinAcceptor;
+import vendingmachine.coin.CoinProcessor;
 
 public class VendingMachine {
 	
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
+	private CoinProcessor coinProcessor = new CoinProcessor();
 	private int currentTotal = ZERO;
 	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	private Product selectedProduct = null;
 	private VendingMachineState currentState = VendingMachineState.READY;
-	private ArrayList<Coin> insertedCoins = new ArrayList<>();
 	
 	public String getDisplay() {
 		switch (this.currentState ) {
@@ -44,7 +45,7 @@ public class VendingMachine {
 			return THANK_YOU;
 		case RETURN_COINS:
 			this.currentState = VendingMachineState.READY;
-			this.insertedCoins.clear();
+			this.coinProcessor.clearInsertedCoins();
 			this.currentTotal = ZERO;
 			return INSERT_COIN;
 		default:
@@ -63,7 +64,7 @@ public class VendingMachine {
 		if (coinValue == ZERO) {
 			this.coinReturn.add(coin);
 		} else {
-			this.insertedCoins.add(coin);
+			this.coinProcessor.processInsertedCoin(coin);
 			if (VendingMachineState.READY.equals(this.currentState)) {
 				this.currentState = VendingMachineState.COIN_INSERTED;
 			}
@@ -108,7 +109,7 @@ public class VendingMachine {
 
 	public ArrayList<Coin> returnCoins() {
 		this.currentState = VendingMachineState.RETURN_COINS;
-		return this.insertedCoins ;
+		return this.coinProcessor.returnCoins();
 	}
 
 }
