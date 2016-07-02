@@ -8,13 +8,18 @@ import static vendingmachine.VendingMachineConstants.ZERO;
 public class CoinAcceptor {
 
 	public Coin identifyCoin(int size, int weight) {
-		if (size == Coin.DIME.getSize() && weight == Coin.DIME.getWeight()) {
+		boolean coinIsDime = (size == Coin.DIME.getSize() && weight == Coin.DIME.getWeight());
+		boolean coinIsPenny = (size == Coin.PENNY.getSize() && weight == Coin.PENNY.getWeight());
+		boolean coinIsNickel = (size == Coin.NICKEL.getSize() && weight == Coin.NICKEL.getWeight());
+		boolean coinIsQuarter = (size == Coin.QUARTER.getSize() && weight == Coin.QUARTER.getWeight());
+		
+		if (coinIsDime) {
 			return Coin.DIME;
-		} else if (size == Coin.PENNY.getSize() && weight == Coin.PENNY.getWeight()) {
+		} else if (coinIsPenny) {
 			return Coin.PENNY;
-		} else if (size == Coin.NICKEL.getSize() && weight == Coin.NICKEL.getWeight()) {
+		} else if (coinIsNickel) {
 			return Coin.NICKEL;
-		} else if (size == Coin.QUARTER.getSize() && weight == Coin.QUARTER.getWeight()) {
+		} else if (coinIsQuarter) {
 			return Coin.QUARTER;
 		} else {
 			return null;

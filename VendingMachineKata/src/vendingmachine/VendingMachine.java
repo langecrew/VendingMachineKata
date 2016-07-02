@@ -29,21 +29,22 @@ public class VendingMachine {
 		case COIN_INSERTED:
 			return this.formatNumberForDisplay(this.coinProcessor.getCurrentTotal());
 		case PRODUCT_SELECTED:
-			if (this.coinProcessor.getCurrentTotal() == ZERO) {
+			boolean noCoinsHaveBeenInsertedYet = (this.coinProcessor.getCurrentTotal() == ZERO);
+			if (noCoinsHaveBeenInsertedYet) {
 				this.currentState = VendingMachineState.READY;
 			} else {
 				this.currentState = VendingMachineState.COIN_INSERTED;
 			}
 			return PRICE + this.formatNumberForDisplay(this.selectedProduct.getPrice());
 		case DISPENSE_PRODUCT:
-			this.coinProcessor.resetCurrentTotal();;
 			this.selectedProduct = null;
+			this.coinProcessor.resetCurrentTotal();
 			this.currentState = VendingMachineState.READY;
 			return THANK_YOU;
 		case RETURN_COINS:
-			this.currentState = VendingMachineState.READY;
 			this.coinProcessor.clearInsertedCoins();
-			this.coinProcessor.resetCurrentTotal();;
+			this.coinProcessor.resetCurrentTotal();
+			this.currentState = VendingMachineState.READY;
 			return INSERT_COIN;
 		default:
 			return INSERT_COIN;
@@ -52,13 +53,17 @@ public class VendingMachine {
 	
 	private String formatNumberForDisplay(int number) {
 		NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-		return numberFormat.format((float) number / CURRENCY_CONVERSION_FACTOR);
+		float intPriceConvertedToFloatForDisplay = (float) number / CURRENCY_CONVERSION_FACTOR;
+		return numberFormat.format(intPriceConvertedToFloatForDisplay);
 	}
 
 	public void coinInserted(Coin coin) {
 		int coinValue = this.coinAcceptor.acceptCoin(coin);
 		this.coinProcessor.processInsertedCoin(coin);
-		if (coinValue != 0 && VendingMachineState.READY.equals(this.currentState)) {
+		
+		boolean insertedCoinWasNotRejected = (coinValue != ZERO);
+		boolean vendingMachinIsNotDisplayingCurrentTotalYet = (VendingMachineState.READY.equals(this.currentState));
+		if (insertedCoinWasNotRejected && vendingMachinIsNotDisplayingCurrentTotalYet) {
 			this.currentState = VendingMachineState.COIN_INSERTED;
 		}
 	}
@@ -68,7 +73,10 @@ public class VendingMachine {
 	}
 
 	public void selectProduct(Product product) {
-		if (this.coinProcessor.getCurrentTotal() >= product.getPrice()) {
+		
+		boolean sufficientCoinsHaveBeenInsertedToPurchaseProduct = (this.coinProcessor.getCurrentTotal() >= product.getPrice());
+		
+		if (sufficientCoinsHaveBeenInsertedToPurchaseProduct) {
 			ArrayList<Coin> change = this.changeMaker.makeChange(product, this.coinProcessor.getCurrentTotal());
 			this.coinProcessor.addCoinsToCoinReturn(change);
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
