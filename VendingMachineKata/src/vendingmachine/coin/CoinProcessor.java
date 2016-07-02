@@ -7,13 +7,18 @@ import java.util.ArrayList;
 public class CoinProcessor {
 	
 	private ArrayList<Coin> insertedCoins = new ArrayList<>();
+	private ArrayList<Coin> rejectedCoins = new ArrayList<>();
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
 	private int currentTotal = ZERO;
 
 	public void processInsertedCoin(Coin coin) {
 		int coinValue = this.coinAcceptor.acceptCoin(coin);
-		this.insertedCoins.add(coin);
-		this.currentTotal  += coinValue;
+		if (coinValue == ZERO) {
+			this.rejectedCoins.add(coin);
+		} else {
+			this.insertedCoins.add(coin);
+			this.currentTotal  += coinValue;
+		}
 	}
 
 	public ArrayList<Coin> returnCoins() {
@@ -28,8 +33,8 @@ public class CoinProcessor {
 		return this.currentTotal;
 	}
 
-	public ArrayList<Coin> getCoinReturn() {
-		return new ArrayList<>();
+	public ArrayList<Coin> getRejectedCoins() {
+		return this.rejectedCoins;
 	}
 
 }

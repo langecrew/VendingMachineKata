@@ -77,10 +77,18 @@ public class CoinProcessorTest {
 	
 	@Test
 	public void testCoinProcessorRejectsPennies() {
-		ArrayList<Coin> coinReturn = this.coinProcessor.getCoinReturn();
+		ArrayList<Coin> coinReturn = this.coinProcessor.getRejectedCoins();
 		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
 		assertEquals(expectedCoinReturn, coinReturn);
+
+		this.coinProcessor.processInsertedCoin(Coin.PENNY);
+		expectedCoinReturn.add(Coin.PENNY);
+		assertEquals(expectedCoinReturn, coinReturn);
 		
+		this.coinProcessor.processInsertedCoin(Coin.DIME);
+		this.coinProcessor.processInsertedCoin(Coin.NICKEL);
+		this.coinProcessor.processInsertedCoin(Coin.QUARTER);
+		assertEquals(expectedCoinReturn, coinReturn);
 	}
 
 }
