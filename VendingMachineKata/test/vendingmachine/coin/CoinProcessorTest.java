@@ -90,5 +90,16 @@ public class CoinProcessorTest {
 		this.coinProcessor.processInsertedCoin(Coin.QUARTER);
 		assertEquals(expectedCoinReturn, coinReturn);
 	}
+	
+	@Test
+	public void testCoinProcessorCanResetCurrentTotal() {
+		this.coinProcessor.processInsertedCoin(Coin.DIME);
+		int currentTotal = this.coinProcessor.getCurrentTotal();
+		assertEquals(DIME_VALUE, currentTotal);
+		
+		this.coinProcessor.resetCurrentTotal();
+		currentTotal = this.coinProcessor.getCurrentTotal();
+		assertEquals(ZERO, currentTotal);
+	}
 
 }

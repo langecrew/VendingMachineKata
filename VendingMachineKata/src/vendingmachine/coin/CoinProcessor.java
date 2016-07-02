@@ -32,6 +32,10 @@ public class CoinProcessor {
 	public int getCurrentTotal() {
 		return this.currentTotal;
 	}
+	
+	public void resetCurrentTotal() {
+		this.currentTotal = ZERO;
+	}
 
 	public ArrayList<Coin> getRejectedCoins() {
 		return this.rejectedCoins;
