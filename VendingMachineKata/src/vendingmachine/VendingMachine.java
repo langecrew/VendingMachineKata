@@ -1,17 +1,15 @@
 package vendingmachine;
 
 import static vendingmachine.VendingMachineConstants.CURRENCY_CONVERSION_FACTOR;
-import static vendingmachine.VendingMachineConstants.DIME_VALUE;
 import static vendingmachine.VendingMachineConstants.INSERT_COIN;
-import static vendingmachine.VendingMachineConstants.NICKEL_VALUE;
 import static vendingmachine.VendingMachineConstants.PRICE;
-import static vendingmachine.VendingMachineConstants.QUARTER_VALUE;
 import static vendingmachine.VendingMachineConstants.THANK_YOU;
 import static vendingmachine.VendingMachineConstants.ZERO;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import vendingmachine.coin.ChangeMaker;
 import vendingmachine.coin.Coin;
 import vendingmachine.coin.CoinAcceptor;
 import vendingmachine.coin.CoinProcessor;
@@ -20,6 +18,7 @@ public class VendingMachine {
 	
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
 	private CoinProcessor coinProcessor = new CoinProcessor();
+	private ChangeMaker changeMaker = new ChangeMaker();
 	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	private Product selectedProduct = null;
 	private VendingMachineState currentState = VendingMachineState.READY;
@@ -78,31 +77,13 @@ public class VendingMachine {
 		if (this.coinProcessor.getCurrentTotal() == product.getPrice()) {
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else if (this.coinProcessor.getCurrentTotal() > product.getPrice()) {
-			this.makeChange(product);
+			ArrayList<Coin> change = this.changeMaker.makeChange(product, this.coinProcessor.getCurrentTotal());
+			this.coinReturn.addAll(change);
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else {
 			this.currentState = VendingMachineState.PRODUCT_SELECTED;
 		}
 		this.selectedProduct = product;
-	}
-
-	private void makeChange(Product product) {
-		int difference = this.coinProcessor.getCurrentTotal() - product.getPrice();
-		int numberOfQuarters = putChangeInCoinReturn(Coin.QUARTER, QUARTER_VALUE, difference);
-		
-		difference = difference - (numberOfQuarters * QUARTER_VALUE);
-		int numberOfDimes = putChangeInCoinReturn(Coin.DIME, DIME_VALUE, difference);
-		
-		difference = difference - (numberOfDimes * DIME_VALUE);
-		putChangeInCoinReturn(Coin.NICKEL, NICKEL_VALUE, difference);
-	}
-
-	private int putChangeInCoinReturn(Coin coin, int coinValue, int difference) {
-		int numberOfCoins = difference / coinValue;
-		for (int i = ZERO; i < numberOfCoins; i++) {
-			this.coinReturn.add(coin);
-		}
-		return numberOfCoins;
 	}
 
 	public ArrayList<Coin> returnCoins() {
