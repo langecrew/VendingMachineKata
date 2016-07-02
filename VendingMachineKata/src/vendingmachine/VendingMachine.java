@@ -20,7 +20,6 @@ public class VendingMachine {
 	
 	private CoinAcceptor coinAcceptor = new CoinAcceptor();
 	private CoinProcessor coinProcessor = new CoinProcessor();
-	private int currentTotal = ZERO;
 	private ArrayList<Coin> coinReturn = new ArrayList<>();
 	private Product selectedProduct = null;
 	private VendingMachineState currentState = VendingMachineState.READY;
@@ -30,23 +29,23 @@ public class VendingMachine {
 		case READY:
 			return INSERT_COIN;
 		case COIN_INSERTED:
-			return this.formatNumberForDisplay(this.currentTotal);
+			return this.formatNumberForDisplay(this.coinProcessor.getCurrentTotal());
 		case PRODUCT_SELECTED:
-			if (this.currentTotal == ZERO) {
+			if (this.coinProcessor.getCurrentTotal() == ZERO) {
 				this.currentState = VendingMachineState.READY;
 			} else {
 				this.currentState = VendingMachineState.COIN_INSERTED;
 			}
 			return PRICE + this.formatNumberForDisplay(this.selectedProduct.getPrice());
 		case DISPENSE_PRODUCT:
-			this.currentTotal = ZERO;
+			this.coinProcessor.resetCurrentTotal();;
 			this.selectedProduct = null;
 			this.currentState = VendingMachineState.READY;
 			return THANK_YOU;
 		case RETURN_COINS:
 			this.currentState = VendingMachineState.READY;
 			this.coinProcessor.clearInsertedCoins();
-			this.currentTotal = ZERO;
+			this.coinProcessor.resetCurrentTotal();;
 			return INSERT_COIN;
 		default:
 			return INSERT_COIN;
@@ -69,7 +68,6 @@ public class VendingMachine {
 				this.currentState = VendingMachineState.COIN_INSERTED;
 			}
 		}
-		this.currentTotal += coinValue;
 	}
 
 	public ArrayList<Coin> getCoinReturn() {
@@ -77,9 +75,9 @@ public class VendingMachine {
 	}
 
 	public void selectProduct(Product product) {
-		if (this.currentTotal == product.getPrice()) {
+		if (this.coinProcessor.getCurrentTotal() == product.getPrice()) {
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
-		} else if (this.currentTotal > product.getPrice()) {
+		} else if (this.coinProcessor.getCurrentTotal() > product.getPrice()) {
 			this.makeChange(product);
 			this.currentState = VendingMachineState.DISPENSE_PRODUCT;
 		} else {
@@ -89,7 +87,7 @@ public class VendingMachine {
 	}
 
 	private void makeChange(Product product) {
-		int difference = this.currentTotal - product.getPrice();
+		int difference = this.coinProcessor.getCurrentTotal() - product.getPrice();
 		int numberOfQuarters = putChangeInCoinReturn(Coin.QUARTER, QUARTER_VALUE, difference);
 		
 		difference = difference - (numberOfQuarters * QUARTER_VALUE);
