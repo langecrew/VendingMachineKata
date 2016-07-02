@@ -7,9 +7,13 @@ import java.util.ArrayList;
 public class CoinProcessor {
 	
 	private ArrayList<Coin> insertedCoins = new ArrayList<>();
+	private CoinAcceptor coinAcceptor = new CoinAcceptor();
+	private int currentTotal = ZERO;
 
 	public void processInsertedCoin(Coin coin) {
+		int coinValue = this.coinAcceptor.acceptCoin(coin);
 		this.insertedCoins.add(coin);
+		this.currentTotal  += coinValue;
 	}
 
 	public ArrayList<Coin> returnCoins() {
@@ -21,7 +25,7 @@ public class CoinProcessor {
 	}
 
 	public int getCurrentTotal() {
-		return ZERO;
+		return this.currentTotal;
 	}
 
 }

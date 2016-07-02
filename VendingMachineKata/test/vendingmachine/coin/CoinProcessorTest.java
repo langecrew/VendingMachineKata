@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import vendingmachine.VendingMachineConstants;
+
 public class CoinProcessorTest {
 	
 	private CoinProcessor coinProcessor;
@@ -50,8 +52,12 @@ public class CoinProcessorTest {
 	
 	@Test
 	public void testCoinProcessorAddsCoinValuesToTotal() {
-		this.coinProcessor.processInsertedCoin(Coin.DIME);
 		int currentTotal = this.coinProcessor.getCurrentTotal();
+		assertEquals(VendingMachineConstants.ZERO, currentTotal);
+		
+		this.coinProcessor.processInsertedCoin(Coin.DIME);
+		currentTotal = this.coinProcessor.getCurrentTotal();
+		assertEquals(VendingMachineConstants.DIME_VALUE, currentTotal);
 	}
 
 }
