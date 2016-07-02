@@ -28,4 +28,8 @@ public class CoinProcessor {
 		return this.currentTotal;
 	}
 
+	public ArrayList<Coin> getCoinReturn() {
+		return new ArrayList<>();
+	}
+
 }

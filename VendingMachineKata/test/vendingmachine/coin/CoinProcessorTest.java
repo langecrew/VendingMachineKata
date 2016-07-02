@@ -74,5 +74,13 @@ public class CoinProcessorTest {
 		currentTotal = this.coinProcessor.getCurrentTotal();
 		assertEquals(DIME_VALUE, currentTotal);
 	}
+	
+	@Test
+	public void testCoinProcessorRejectsPennies() {
+		ArrayList<Coin> coinReturn = this.coinProcessor.getCoinReturn();
+		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
+		assertEquals(expectedCoinReturn, coinReturn);
+		
+	}
 
 }
