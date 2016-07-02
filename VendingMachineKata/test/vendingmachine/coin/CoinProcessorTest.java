@@ -103,27 +103,6 @@ public class CoinProcessorTest {
 	}
 	
 	@Test
-	public void testCoinProcessorCanAddCoinsToCoinReturn() {
-		ArrayList<Coin> coinReturn = this.coinProcessor.getCoinReturn();
-		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();
-		
-		assertEquals(expectedCoinReturn, coinReturn);
-		
-		this.coinProcessor.putCoinInCoinReturn(Coin.DIME);
-		this.coinProcessor.putCoinInCoinReturn(Coin.DIME);
-		this.coinProcessor.putCoinInCoinReturn(Coin.QUARTER);
-		this.coinProcessor.putCoinInCoinReturn(Coin.NICKEL);
-		
-		coinReturn = this.coinProcessor.getCoinReturn();
-		expectedCoinReturn.add(Coin.DIME);
-		expectedCoinReturn.add(Coin.DIME);
-		expectedCoinReturn.add(Coin.QUARTER);
-		expectedCoinReturn.add(Coin.NICKEL);
-
-		assertEquals(expectedCoinReturn, coinReturn);
-	}
-	
-	@Test
 	public void testCoinProcessorCanAddSetOfCoinsToCoinReturn() {
 		ArrayList<Coin> coinReturn = this.coinProcessor.getCoinReturn();
 		ArrayList<Coin> expectedCoinReturn = new ArrayList<>();

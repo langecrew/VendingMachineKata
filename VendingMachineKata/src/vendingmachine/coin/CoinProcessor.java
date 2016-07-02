@@ -41,10 +41,6 @@ public class CoinProcessor {
 		return this.coinReturn;
 	}
 
-	public void putCoinInCoinReturn(Coin coin) {
-		this.coinReturn.add(coin);
-	}
-
 	public void addCoinsToCoinReturn(ArrayList<Coin> coins) {
 		this.coinReturn.addAll(coins);
 	}
